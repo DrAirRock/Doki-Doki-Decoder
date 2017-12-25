@@ -20,7 +20,6 @@ def Convert_from_base64(encoded):
 
 def print_out(text): 
     with open(os.path.join('Decoded_Files', 'yuri_decoded.txt'),'w') as out_file:
-        print 
         out_file.write(text)
     out_file.close()
 
