@@ -28,16 +28,15 @@ def is_white(pixel):
 def convert_to_binary(image): 
     b_array = []
     width, height = image.size
-    for x in range(0,width):
-        for y in range(0,height):
+    for y in range(0,height):
+        for x in range(0,width):
             pixle = image.getpixel((x,y)) 
-            print (pixle)
             if is_black(pixle): 
                 b_array.append(0)
             elif is_white(pixle): 
                 b_array.append(1)
     b_array = "".join(str(x) for x in b_array)
-    return int(b_array)
+    return b_array
 
 def bits2string(b): 
     return "".join([b64encode(chr(int(x, 2))) for x in b])
@@ -60,8 +59,10 @@ def read_monika():
 def main (): 
     image = read_monika()
     b = convert_to_binary(image)
-    char_string = to_ascii(b)
-    print (char_string)
+    print(b)
+    print (float(len(b)/8))
+    #char_string = to_ascii(b)
+   # print (char_string)
 
 
 main()
