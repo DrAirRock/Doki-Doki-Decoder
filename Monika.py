@@ -3,9 +3,7 @@ import os
 from PIL import Image 
 import unicodedata
 import binascii
-import codecs
-from base64 import b64decode
-import struct
+import base64
 
 def chunk(array, n):
     for i in range(0, len(array), n):
@@ -39,7 +37,9 @@ def convert_to_binary(image):
     return b_array
 
 def bits2string(b): 
-    return "".join([b64encode(chr(int(x, 2))) for x in b])
+    print(b)
+    return "".join([chr(int(x, 2)) for x in b])
+
 
 def to_ascii(binary): 
     my_bytes = chunk(binary,8)
@@ -47,22 +47,34 @@ def to_ascii(binary):
     for byte in my_bytes: 
         array_of_bytes.append("".join(str(x) for x in byte))
     b = bits2string(array_of_bytes)
-    #text = struct.pack("I", binary).endcode('base64')
-    return text
+    return b
 
 def read_monika(): 
     image = os.path.join('Char_files', 'monika_bytes.png') 
     monika_image = Image.open(image)
     return monika_image
 
+def Convert_from_base64(encoded): 
+    #encode to utf-8
+    encoded = encoded.encode()
+    #convert from base 64
+    text = base64.decodestring(encoded)
+    text = text.decode('utf-8')
+    return text
+
+def print_out(text): 
+    with open(os.path.join('Decoded_Files', 'monika_decoded.txt'),'w') as out_file:
+        out_file.write(text)
+    out_file.close()
 
 def main (): 
     image = read_monika()
     b = convert_to_binary(image)
     print(b)
-    print (float(len(b)/8))
-    #char_string = to_ascii(b)
-   # print (char_string)
+    char_string = to_ascii(b)
+    monika_string = Convert_from_base64(char_string)
+    print_out(monika_string)
+
 
 
 main()
