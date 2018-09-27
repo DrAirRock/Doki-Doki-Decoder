@@ -1,4 +1,4 @@
-#Doki Doki Decoder
+# Doki Doki Decoder
 
 Played the Game, saw this game theroy. Thought I'd take a crack at it. 
 
